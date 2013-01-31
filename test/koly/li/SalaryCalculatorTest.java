@@ -32,4 +32,10 @@ public class SalaryCalculatorTest {
         double bonusRate = 0.1;
         assertThat(salaryCalculator.acquireBonus(200., bonusRate), is(20.));
     }
+
+    @Test
+    public void should_get_the_bonus_tax() throws Exception {
+        double bonusTaxRate = 0.05;
+        assertThat(salaryCalculator.acquireBonusTax(200, bonusTaxRate), is(10.));
+    }
 }

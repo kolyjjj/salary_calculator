@@ -8,4 +8,8 @@ public class SalaryCalculator {
     public double acquireBonus(double salary, double rate) {
         return salary * rate;
     }
+
+    public double acquireBonusTax(int bonus, double bonusTaxRate) {
+        return bonus * bonusTaxRate;
+    }
 }
