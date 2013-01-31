@@ -13,7 +13,7 @@ public class SalaryCalculator {
         return bonus * bonusTaxRate;
     }
 
-    public double acquirePersonalTax(double salary, double personalTaxRate) {
-        return salary < 3500.? 0. : (salary - 3500.) * personalTaxRate;
+    public double acquirePersonalTax(double salary, double personalTaxRate, double salarybottom) {
+        return salary < salarybottom? 0. : (salary - salarybottom) * personalTaxRate;
     }
 }
