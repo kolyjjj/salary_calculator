@@ -9,7 +9,11 @@ public class SalaryCalculator {
         return salary * rate;
     }
 
-    public double acquireBonusTax(int bonus, double bonusTaxRate) {
+    public double acquireBonusTax(double bonus, double bonusTaxRate) {
         return bonus * bonusTaxRate;
+    }
+
+    public double acquirePersonalTax(double salary, double personalTaxRate) {
+        return salary < 3500.? 0. : (salary - 3500.) * personalTaxRate;
     }
 }

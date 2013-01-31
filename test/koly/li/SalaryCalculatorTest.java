@@ -36,6 +36,18 @@ public class SalaryCalculatorTest {
     @Test
     public void should_get_the_bonus_tax() throws Exception {
         double bonusTaxRate = 0.05;
-        assertThat(salaryCalculator.acquireBonusTax(200, bonusTaxRate), is(10.));
+        assertThat(salaryCalculator.acquireBonusTax(200., bonusTaxRate), is(10.));
+    }
+
+    @Test
+    public void should_get_zero_personal_tax_when_salary_is_below_the_limit() throws Exception {
+        double personalTaxRate = 0.1;
+        assertThat(salaryCalculator.acquirePersonalTax(2000., personalTaxRate), is(0.));
+    }
+
+    @Test
+    public void should_get_personal_tax_when_salary_is_beyond_the_limit() throws Exception {
+        double personalTaxRate = 0.1;
+        assertThat(salaryCalculator.acquirePersonalTax(4500., personalTaxRate), is(100.));
     }
 }
