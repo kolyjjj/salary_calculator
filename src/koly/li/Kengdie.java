@@ -10,14 +10,16 @@ public class Kengdie {
 
     public String calculate(int days) {
         double salary = calculator.acquireSalary(days, 200.);
+        double finalSalary = salary - calculator.acquirePersonalTax(salary, 0.1, 3500.);
         double finalBonus = calculateFinalBonus(calculator.acquireSalary(days, 200.));
-        return  "salary:" + salary + "\n" +
+
+        return  "salary:" + finalSalary + "\n" +
                 "bonus:" + finalBonus + "\n" +
-                "income:" + calculateIncome(salary, finalBonus) + "\n";
+                "income:" + calculateIncome(finalSalary, finalBonus) + "\n";
     }
 
-    private double calculateIncome(double salary, double finalBonus) {
-        return salary + finalBonus + calculator.acquirePersonalTax(salary, 0.1, 3500);
+    private double calculateIncome(double salary, double bonus) {
+        return salary + bonus;
     }
 
     private double calculateFinalBonus(double salary){
