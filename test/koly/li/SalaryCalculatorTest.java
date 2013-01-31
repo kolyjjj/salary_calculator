@@ -17,12 +17,16 @@ public class SalaryCalculatorTest {
 
     @Test
     public void should_get_one_day_salary() throws Exception {
-        assertThat(salaryCalculator.aquireSalary(1), is(200.));
+        assertThat(salaryCalculator.acquireSalary(1), is(200.));
     }
 
     @Test
     public void should_get_more_than_one_day_salary() throws Exception {
-        assertThat(salaryCalculator.aquireSalary(3), is(600.));
+        assertThat(salaryCalculator.acquireSalary(3), is(600.));
     }
 
+    @Test
+    public void should_get_bonus() throws Exception {
+        assertThat(salaryCalculator.acquireBonus(200.), is(20.));
+    }
 }
