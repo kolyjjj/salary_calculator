@@ -1,7 +1,7 @@
 package koly.li;
 
 public class SalaryCalculator {
-    public double run(int days) {
+    public double aquireSalary(int days) {
         return 200 * days;
     }
 }
