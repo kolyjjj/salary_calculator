@@ -1,34 +1,74 @@
 package koly.li;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Scanner;
 
 public class KengDieApp {
-    public static void main(String[] args){
+
+    private final List<CommandHandler> continueCommands = new ArrayList<CommandHandler>();
+    private final List<CommandHandler> quitCommands = new ArrayList<CommandHandler>();
+    private Kengdie kengdie;
+    private int days;
+
+    public KengDieApp(Kengdie kengdie) {
+        this.kengdie = kengdie;
+    }
+
+    public void run(){
         Scanner in = new Scanner(System.in);
-        Kengdie kengdie = new Kengdie(new SalaryCalculator());
-        while(true){
-            System.out.println("Hi,Welcome to KengDie App, type -1 to quit the app!\nplease input your working days:");
-            int days= in.nextInt();
-            if (quit(days)) break;
-            if (handleWrongInput(days)) continue;
-            System.out.println(kengdie.calculate(days));
-        }
+        initCommands();
+        doMainLoop(in);
         in.close();
     }
 
-    private static boolean handleWrongInput(int days) {
-        if(days < 0){
-            System.out.println("Your working days must be larger than 0!");
-            return true;
+    private void initCommands() {
+        quitCommands.add(new QuitCommand());
+        continueCommands.add(new WrongInputCommand());
+    }
+
+    private void doMainLoop(Scanner in) {
+        while(true){
+            printWelcomeMessage();
+            handleNonIntInput(in);
+            days = in.nextInt();
+            if (handleQuitCommands())break;
+            if (handleContinueCommands()) continue;
+            printSalaryInfo();
+        }
+    }
+
+    private void handleNonIntInput(Scanner in) {
+        while (!in.hasNextInt()){
+            System.out.println("please input numbers only!");
+            in.nextLine();
+        }
+    }
+
+    private void printSalaryInfo() {
+        System.out.println(kengdie.calculate(days));
+    }
+
+    private void printWelcomeMessage() {
+        System.out.println("Hi,Welcome to KengDie App, type -1 to quit the app!\nplease input your working days:");
+    }
+
+    private boolean handleQuitCommands() {
+        for (CommandHandler c : quitCommands){
+            if (c.handle(days)){
+                return true;
+            }
         }
         return false;
     }
 
-    private static boolean quit(int days) {
-        if (days == -1){
-            System.out.println("Thanks for using our App! See you next time!");
-            return true;
+    private boolean handleContinueCommands() {
+        for (CommandHandler c : continueCommands){
+            if(c.handle(days)){
+                return true;
+            }
         }
         return false;
     }
+
 }
